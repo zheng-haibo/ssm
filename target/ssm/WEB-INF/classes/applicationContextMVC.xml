@@ -13,14 +13,14 @@
 		http://www.springframework.org/schema/context
 		http://www.springframework.org/schema/context/spring-context-4.1.xsd">
 
-    <!-- 定义文件的上传配置支持 -->
-    <bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver" id="multipartResolver">
-        <!-- 设置每次上传文件的最大限制 -->
-        <property value="5242880" name="maxUploadSize"/>
-        <!-- 设置每次上传占用的内存大小 -->
-        <property value="4096" name="maxInMemorySize"/>
+    <!--&lt;!&ndash; 定义文件的上传配置支持 &ndash;&gt;-->
+    <!--<bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver" id="multipartResolver">-->
+        <!--&lt;!&ndash; 设置每次上传文件的最大限制 &ndash;&gt;-->
+        <!--<property value="5242880" name="maxUploadSize"/>-->
+        <!--&lt;!&ndash; 设置每次上传占用的内存大小 &ndash;&gt;-->
+        <!--<property value="4096" name="maxInMemorySize"/>-->
 
-    </bean>
+    <!--</bean>-->
     <!-- 配置了一个全局的异常的跳转映射，只要出现了指定的错误信息，那么就跳转到指定的页面 -->
     <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver" id="exceptionMapping">
         <property name="exceptionMappings">
@@ -48,18 +48,25 @@
 
     <!-- 表示要进行安全访问的路径资源匹配处理 -->
 
-    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+    <!--<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">-->
 
-        <!-- 匹配前缀 -->
-        <property value="/WEB-INF/pages/" name="prefix"/>
+        <!--&lt;!&ndash; 匹配前缀 &ndash;&gt;-->
+        <!--<property value="/WEB-INF/pages/" name="prefix"/>-->
 
-        <!-- 匹配处理的后缀 -->
-        <property value=".jsp" name="suffix"/>
+        <!--&lt;!&ndash; 匹配处理的后缀 &ndash;&gt;-->
+        <!--<property value=".jsp" name="suffix"/>-->
 
-    </bean>
+    <!--</bean>-->
 
     <context:annotation-config/>     <!--启用spring注解-->
     <context:component-scan base-package="cn"/> <!-- 注解扫描路径-->
     <mvc:annotation-driven/>   <!--启动mvc的注解-->
     <mvc:default-servlet-handler/> <!--启用处理请求的servlet-->
+    
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**/*.action"/>
+            <bean class="cn.ssm.interceptor.MyInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
 </beans>
